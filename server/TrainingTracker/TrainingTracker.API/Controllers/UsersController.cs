@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TrainingTracker.Application.Users.Commands.RegisterUser;
+using TrainingTracker.Application.Users.Queries.Login;
 
 namespace TrainingTracker.API.Controllers
 {
@@ -28,5 +29,21 @@ namespace TrainingTracker.API.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginQuery query)
+        {
+            try
+            {
+                var token = await _mediator.Send(query);
+                return Ok(new { Token = token });
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized(new { message = ex.Message });
+            }
+        }
+
+
     }
 }
