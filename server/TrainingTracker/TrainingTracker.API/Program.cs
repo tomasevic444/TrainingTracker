@@ -1,5 +1,7 @@
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using TrainingTracker.Application.Common.Behaviors;
 using TrainingTracker.Infrastructure.Persistence;
 using TrainingTracker.Infrastructure.Persistence.Repositories;
 
@@ -20,7 +22,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddMediatR(cfg =>
-    cfg.RegisterServicesFromAssembly(typeof(IUserRepository).Assembly));
+{
+    cfg.RegisterServicesFromAssembly(typeof(IUserRepository).Assembly);
+    // Register the validation pipeline behavior
+    cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+});
+
+builder.Services.AddValidatorsFromAssembly(typeof(IUserRepository).Assembly);
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
