@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TrainingTracker.Application.Workouts.Commands.CreateWorkout;
+using TrainingTracker.Application.Workouts.Queries.GetUserWorkouts;
 
 namespace TrainingTracker.API.Controllers
 {
@@ -25,5 +26,13 @@ namespace TrainingTracker.API.Controllers
 
             return CreatedAtAction(nameof(CreateWorkout), new { id = workoutId }, workoutId);
         }
+        [HttpGet] // This will map to GET /api/workouts
+        public async Task<IActionResult> GetUserWorkouts()
+        {
+            var query = new GetUserWorkoutsQuery();
+            var workouts = await _mediator.Send(query);
+            return Ok(workouts);
+        }
+
     }
 }
