@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using TrainingTracker.API.Services;
 using TrainingTracker.Application.Common.Behaviors;
 using TrainingTracker.Application.Common.Interfaces;
 using TrainingTracker.Infrastructure.Auth;
@@ -62,11 +63,13 @@ builder.Services.AddMediatR(cfg =>
     // Register the validation pipeline behavior
     cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 });
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddValidatorsFromAssembly(typeof(IUserRepository).Assembly);
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+builder.Services.AddScoped<IUserContext, UserContext>();
+builder.Services.AddScoped<IWorkoutRepository, WorkoutRepository>();
 
 builder.Services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
