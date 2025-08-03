@@ -30,4 +30,12 @@ public class UserRepository : IUserRepository
     {
         return await _context.Users.AnyAsync(u => u.Username.ToLower() == username.ToLower(), cancellationToken);
     }
+
+    public async Task<User?> FindUserByLoginIdentifierAsync(string identifier, CancellationToken cancellationToken)
+    {
+        var normalizedIdentifier = identifier.ToLower();
+
+        return await _context.Users
+            .SingleOrDefaultAsync(u => u.Email.ToLower() == normalizedIdentifier || u.Username.ToLower() == normalizedIdentifier, cancellationToken);
+    }
 }
