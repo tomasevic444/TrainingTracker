@@ -89,6 +89,33 @@ builder.Services.AddAuthentication(defaultScheme: JwtBearerDefaults.Authenticati
 
 var app = builder.Build();
 
+// This block will run the seeder on startup
+if (app.Environment.IsDevelopment())
+{
+    try
+    {
+        // This creates a new scope to retrieve services
+        using (var scope = app.Services.CreateScope())
+        {
+            var services = scope.ServiceProvider;
+            var context = services.GetRequiredService<ApplicationDbContext>();
+
+            // Ensure the database is created.
+            await context.Database.MigrateAsync();
+
+            // Seed the data
+            await ApplicationDbContextSeed.SeedSampleDataAsync(context);
+        }
+    }
+    catch (Exception ex)
+    {
+        // A simple way to log errors during startup
+        var logger = app.Services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while seeding the database.");
+    }
+}
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
