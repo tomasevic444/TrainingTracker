@@ -6,5 +6,6 @@ public interface IWorkoutRepository
 {
     void Add(Workout workout);
     Task<IEnumerable<Workout>> GetWorkoutsByUserIdAsync(Guid userId, CancellationToken cancellationToken);
+    Task<IEnumerable<Workout>> GetWorkoutsByDateRangeAsync(Guid userId, DateTime startDate, DateTime endDate, CancellationToken cancellationToken);
     Task<bool> SaveChangesAsync(CancellationToken cancellationToken);
 }

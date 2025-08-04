@@ -29,4 +29,10 @@ public class WorkoutRepository : IWorkoutRepository
             .OrderByDescending(w => w.Date) // Return the most recent workouts first
             .ToListAsync(cancellationToken);
     }
+    public async Task<IEnumerable<Workout>> GetWorkoutsByDateRangeAsync(Guid userId, DateTime startDate, DateTime endDate, CancellationToken cancellationToken)
+    {
+        return await _context.Workouts
+            .Where(w => w.UserId == userId && w.Date >= startDate && w.Date < endDate)
+            .ToListAsync(cancellationToken);
+    }
 }
