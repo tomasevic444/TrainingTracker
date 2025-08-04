@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TrainingTracker.Application.Workouts.Commands.CreateWorkout;
 using TrainingTracker.Application.Workouts.Queries.GetUserWorkouts;
+using TrainingTracker.Application.Workouts.Queries.GetWeeklySummary;
 
 namespace TrainingTracker.API.Controllers
 {
@@ -32,6 +33,12 @@ namespace TrainingTracker.API.Controllers
             var query = new GetUserWorkoutsQuery();
             var workouts = await _mediator.Send(query);
             return Ok(workouts);
+        }
+        [HttpGet("summary")] // Maps to GET /api/workouts/summary?year=2024&month=8
+        public async Task<IActionResult> GetWeeklySummary([FromQuery] GetWeeklySummaryQuery query)
+        {
+            var summary = await _mediator.Send(query);
+            return Ok(summary);
         }
 
     }
