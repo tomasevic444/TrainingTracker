@@ -1,0 +1,27 @@
+.toolbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+
+  mat-icon {
+    margin-right: 8px;
+  }
+}
+
+.nav-links {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+
+  a {
+    margin: 0 10px;
+  }
+}

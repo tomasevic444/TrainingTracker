@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-progress-page',
-  imports: [],
-  templateUrl: './progress-page.component.html',
-  styleUrl: './progress-page.component.scss'
+  standalone: true,
+  imports: [CommonModule],
+  template: `<p>progress-page works!</p>`, 
 })
-export class ProgressPageComponent {
-
-}
+export class ProgressPageComponent {}

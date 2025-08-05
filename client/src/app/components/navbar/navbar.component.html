@@ -1,1 +1,17 @@
-<p>navbar works!</p>
+<mat-toolbar color="primary">
+  <div class="toolbar-container">
+    <a routerLink="/dashboard" class="logo">
+      <mat-icon>fitness_center</mat-icon>
+      <span>Training Tracker</span>
+    </a>
+
+    <div class="nav-links">
+      <a mat-button routerLink="/dashboard">Dashboard</a>
+      <a mat-button routerLink="/progress">Progress</a>
+    </div>
+    
+    <div class="user-actions">
+      <a mat-raised-button color="accent" routerLink="/auth/login">Login</a>
+    </div>
+  </div>
+</mat-toolbar>
