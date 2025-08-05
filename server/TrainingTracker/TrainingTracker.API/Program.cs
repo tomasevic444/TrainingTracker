@@ -87,6 +87,17 @@ builder.Services.AddAuthentication(defaultScheme: JwtBearerDefaults.Authenticati
         };
     });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200") // The origin of Angular app
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+
 var app = builder.Build();
 
 // This block will run the seeder on startup
@@ -124,6 +135,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowAngularApp");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
