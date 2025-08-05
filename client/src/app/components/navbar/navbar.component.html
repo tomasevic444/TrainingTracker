@@ -5,13 +5,20 @@
       <span>Training Tracker</span>
     </a>
 
-    <div class="nav-links">
+    <div *ngIf="authService.isLoggedIn()" class="nav-links">
       <a mat-button routerLink="/dashboard">Dashboard</a>
       <a mat-button routerLink="/progress">Progress</a>
     </div>
     
     <div class="user-actions">
-      <a mat-raised-button color="accent" routerLink="/auth/login">Login</a>
+      <ng-container *ngIf="!authService.isLoggedIn(); else loggedIn">
+        <a mat-raised-button color="accent" routerLink="/auth/login">Login</a>
+      </ng-container>
+      <ng-template #loggedIn>
+        <button mat-icon-button (click)="logout()">
+          <mat-icon>logout</mat-icon>
+        </button>
+      </ng-template>
     </div>
   </div>
 </mat-toolbar>
