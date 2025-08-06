@@ -1,1 +1,34 @@
-<p>dashboard-page works!</p>
+<div class="dashboard-container">
+  <h1>My Workouts</h1>
+
+  <div *ngIf="isLoading" class="loading-spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && workouts.length === 0" class="no-workouts">
+    <p>You haven't logged any workouts yet. Add one to get started!</p>
+  </div>
+
+  <div *ngIf="!isLoading && workouts.length > 0" class="workouts-list">
+    <mat-card *ngFor="let workout of workouts" class="workout-card">
+      <mat-card-header>
+        <div mat-card-avatar class="workout-icon">
+          <mat-icon>{{ getIconForExercise(workout.exerciseType) }}</mat-icon>
+        </div>
+        <mat-card-title>{{ workout.exerciseType }}</mat-card-title>
+        <mat-card-subtitle>{{ workout.date | date: 'fullDate' }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="stats-grid">
+          <div><strong>Duration:</strong> {{ workout.durationInMinutes }} min</div>
+          <div><strong>Calories:</strong> {{ workout.caloriesBurned }} kcal</div>
+          <div><strong>Intensity:</strong> {{ workout.intensity }}/10</div>
+          <div><strong>Fatigue:</strong> {{ workout.fatigue }}/10</div>
+        </div>
+        <p *ngIf="workout.notes" class="notes">
+          <strong>Notes:</strong> {{ workout.notes }}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

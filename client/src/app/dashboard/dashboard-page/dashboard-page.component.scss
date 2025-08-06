@@ -1,0 +1,67 @@
+.dashboard-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+}
+
+.no-workouts {
+  text-align: center;
+  margin-top: 4rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.2rem;
+}
+
+.workouts-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.workout-card {
+  background: rgba(40, 40, 60, 0.4);
+  color: rgba(255, 255, 255, 0.87);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.workout-icon {
+  background-color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.notes {
+  margin-top: 1rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.7);
+  border-left: 3px solid #cfbaff; // Use accent color
+  padding-left: 1rem;
+}
+  h1 {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #cfbaff; // Use your theme's accent color for an underline
+    padding-bottom: 0.5rem;
+  }
