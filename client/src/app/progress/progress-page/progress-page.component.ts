@@ -63,7 +63,6 @@ export class ProgressPageComponent implements OnInit {
         this.isLoading = false;
       },
       error: (err) => {
-        console.error('Failed to load summary', err);
         this.isLoading = false;
       }
     });

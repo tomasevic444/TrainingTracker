@@ -6,6 +6,7 @@ import { MaterialModule } from '../../material.module';
 import { MatDialog } from '@angular/material/dialog';
 import { AddWorkoutDialogComponent } from '../add-workout-dialog/add-workout-dialog.component';
 import { CreateWorkoutCommand } from '../../core/models/create-workout.model';
+import { NotificationService } from '../../core/notification.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -20,7 +21,8 @@ export class DashboardPageComponent implements OnInit {
 
   constructor(
     private workoutService: WorkoutService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -33,10 +35,8 @@ export class DashboardPageComponent implements OnInit {
       next: (data) => {
         this.workouts = data;
         this.isLoading = false;
-        console.log('Workouts loaded', this.workouts);
       },
       error: (err) => {
-        console.error('Failed to load workouts', err);
         this.isLoading = false;
       }
     });
@@ -58,7 +58,6 @@ export class DashboardPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('Dialog result:', result);
         this.saveWorkout(result);
       }
     });
@@ -67,13 +66,11 @@ export class DashboardPageComponent implements OnInit {
   private saveWorkout(workoutData: CreateWorkoutCommand): void {
     this.workoutService.createWorkout(workoutData).subscribe({
       next: () => {
-        console.log('Workout saved successfully');
-        alert('Workout Added!'); // Temporary feedback
-        this.loadWorkouts(); 
+        this.notificationService.showSuccess('Workout Added!');
+        this.loadWorkouts();
       },
       error: (err) => {
-        console.error('Failed to save workout', err);
-        alert('Error saving workout.'); // Temporary feedback
+        this.notificationService.showError('Error saving workout.');
       }
     });
   }

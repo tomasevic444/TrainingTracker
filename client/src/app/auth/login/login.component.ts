@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { MaterialModule } from '../../material.module';
 import { CommonModule } from '@angular/common';
+import { NotificationService } from '../../core/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService 
   ) { }
 
   ngOnInit(): void {
@@ -38,15 +40,13 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.authService.login(this.loginForm.value).subscribe({
-  next: (response) => {
-    console.log('Login successful!', response);
-    this.router.navigate(['/dashboard']); // Redirect to the dashboard
-  },
-  error: (err) => {
-    console.error('Login failed', err);
-    alert('Login Failed: ' + (err.error.message || 'Please try again'));
-  }
-});
+  this.authService.login(this.loginForm.value).subscribe({
+      next: (response) => {
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err) => {
+        this.notificationService.showError(err.error.message || 'Login failed. Please try again.');
+      }
+    });
   }
 }

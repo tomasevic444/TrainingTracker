@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { MaterialModule } from '../../material.module';
 import { AuthService } from '../auth.service';
+import { NotificationService } from '../../core/notification.service';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +24,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -48,13 +50,11 @@ export class RegisterComponent implements OnInit {
 
     this.authService.register(this.registerForm.value).subscribe({
       next: (response) => {
-        console.log('Registration successful!', response);
-        alert('Registration successful! Please log in.'); 
-        this.router.navigate(['/auth/login']); 
+        this.notificationService.showSuccess('Registration successful! Please log in.');
+        this.router.navigate(['/auth/login']);
       },
       error: (err) => {
-        console.error('Registration failed', err);
-        alert('Registration Failed: ' + (err.error.message || 'An unknown error occurred.'));
+        this.notificationService.showError(err.error.message || 'Registration failed.');
       }
     });
   }

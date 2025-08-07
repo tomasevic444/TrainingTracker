@@ -14,3 +14,17 @@ body {
 }
 
 $navbar-height: 64px;
+
+.success-snackbar {
+  .mdc-snackbar__surface {
+    background-color: #2e7d32; 
+    color: white;
+  }
+}
+
+.error-snackbar {
+  .mdc-snackbar__surface {
+    background-color: #d32f2f; 
+    color: white;
+  }
+}
