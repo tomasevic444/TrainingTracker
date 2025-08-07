@@ -1,6 +1,10 @@
 <div class="dashboard-container">
-  <h1>My Workouts</h1>
-
+  <div class="header">
+    <h1>My Workouts</h1>
+    <button mat-fab color="accent" aria-label="Add a new workout" (click)="openAddWorkoutDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
   <div *ngIf="isLoading" class="loading-spinner">
     <mat-spinner></mat-spinner>
   </div>

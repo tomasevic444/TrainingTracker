@@ -1,0 +1,55 @@
+<h1 mat-dialog-title>Create a new workout</h1>
+
+<div mat-dialog-content>
+  <form [formGroup]="workoutForm" class="workout-form">
+    
+      <mat-form-field appearance="outline">
+      <mat-label>Exercise Type</mat-label>
+      <mat-select formControlName="exerciseType">
+        <mat-option value="Cardio">Cardio</mat-option>
+        <mat-option value="Strength">Strength</mat-option>
+        <mat-option value="Flexibility">Flexibility</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+  <mat-label>Date</mat-label>
+  <input matInput [matDatepicker]="picker" formControlName="date" [max]="maxDate">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Duration (min)</mat-label>
+        <input matInput type="number" formControlName="durationInMinutes">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Calories</mat-label>
+        <input matInput type="number" formControlName="caloriesBurned">
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Intensity (1-10)</mat-label>
+        <input matInput type="number" formControlName="intensity">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Fatigue (1-10)</mat-label>
+        <input matInput type="number" formControlName="fatigue">
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Notes (optional)</mat-label>
+      <textarea matInput formControlName="notes"></textarea>
+    </mat-form-field>
+
+  </form>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="workoutForm.invalid">Save Workout</button>
+</div>

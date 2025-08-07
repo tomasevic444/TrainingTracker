@@ -54,14 +54,21 @@
   margin-top: 1rem;
   font-style: italic;
   color: rgba(255, 255, 255, 0.7);
-  border-left: 3px solid #cfbaff; // Use accent color
+  border-left: 3px solid #cfbaff; 
   padding-left: 1rem;
 }
-  h1 {
+  
+  .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+ h1 {
     color: white;
     font-size: 2.5rem;
     font-weight: 500;
     margin-bottom: 2rem;
-    border-bottom: 2px solid #cfbaff; // Use your theme's accent color for an underline
+    border-bottom: 2px solid #cfbaff; 
     padding-bottom: 0.5rem;
   }
+}
