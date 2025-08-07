@@ -1,1 +1,38 @@
-<p>progress-page works!</p>
+<div class="progress-container">
+  <div class="header">
+    <h1>Monthly Progress</h1>
+    <mat-form-field appearance="outline" class="month-picker">
+      <mat-label>Select Month</mat-label>
+      <input matInput [matDatepicker]="dp" [formControl]="selectedDate" readonly>
+      <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+      <mat-datepicker #dp
+    startView="year" 
+    (monthSelected)="monthSelected($event, dp)"
+    panelClass="month-picker-panel">
+</mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && summaries.length === 0" class="no-data">
+    <p>No workouts logged for {{ selectedDate.value?.toDate() | date:'MMMM yyyy' }}.</p>
+  </div>
+
+  <div *ngIf="!isLoading && summaries.length > 0" class="summary-list">
+    <mat-card *ngFor="let week of summaries" class="summary-card">
+      <mat-card-title>Week {{ week.weekNumber }}</mat-card-title>
+      <mat-card-subtitle>{{ week.weekStartDate | date:'MMM d' }} - {{ week.weekEndDate | date:'MMM d, yyyy' }}</mat-card-subtitle>
+      <mat-card-content>
+        <div class="stats-grid">
+          <div><mat-icon>timer</mat-icon> {{ week.totalDurationInMinutes }} min</div>
+          <div><mat-icon>tag</mat-icon> {{ week.totalWorkouts }} workouts</div>
+          <div><mat-icon>trending_up</mat-icon> Avg. Intensity: {{ week.averageIntensity | number:'1.1-1' }}</div>
+          <div><mat-icon>battery_charging_full</mat-icon> Avg. Fatigue: {{ week.averageFatigue | number:'1.1-1' }}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
