@@ -1,0 +1,14 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Port=5432;Database=training_tracker_db;Username=user;Password=password"
+  },
+  "JwtSettings": {
+    "Secret": "THIS_IS_A_SUPER_SECRET_AND_LONG_KEY_FOR_JWT_SIGNING_12345"
+  }
+}
