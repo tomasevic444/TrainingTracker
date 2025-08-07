@@ -1,24 +1,29 @@
-<mat-toolbar color="primary">
-  <div class="toolbar-container">
+<mat-toolbar color="primary" class="app-navbar">
+  <!-- Left Section: Logo and App Name -->
+  <div class="nav-section nav-left">
     <a routerLink="/dashboard" class="logo">
       <mat-icon>fitness_center</mat-icon>
       <span>Training Tracker</span>
     </a>
+  </div>
 
-    <div *ngIf="authService.isLoggedIn()" class="nav-links">
+  <!-- Center Section: Main Navigation Links -->
+  <div class="nav-section nav-center">
+    <ng-container *ngIf="authService.isLoggedIn()">
       <a mat-button routerLink="/dashboard">Dashboard</a>
       <a mat-button routerLink="/progress">Progress</a>
-    </div>
-    
-    <div class="user-actions">
-      <ng-container *ngIf="!authService.isLoggedIn(); else loggedIn">
-        <a mat-raised-button color="accent" routerLink="/auth/login">Login</a>
-      </ng-container>
-      <ng-template #loggedIn>
-        <button mat-icon-button (click)="logout()">
-          <mat-icon>logout</mat-icon>
-        </button>
-      </ng-template>
-    </div>
+    </ng-container>
+  </div>
+
+  <!-- Right Section: User Actions (Login/Logout) -->
+  <div class="nav-section nav-right">
+    <ng-container *ngIf="!authService.isLoggedIn(); else loggedIn">
+      <a mat-raised-button routerLink="/auth/login" class="login-button">Login</a>
+    </ng-container>
+    <ng-template #loggedIn>
+      <button mat-icon-button (click)="logout()" aria-label="Logout button">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </ng-template>
   </div>
 </mat-toolbar>

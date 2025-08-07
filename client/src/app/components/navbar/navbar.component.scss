@@ -1,27 +1,66 @@
-.toolbar-container {
+.app-navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  padding: 0 24px;
+}
+
+.nav-section {
+  display: flex;
+  align-items: center;
+}
+
+// Left Section (Logo)
+.nav-left {
+  flex: 1 0 0;
+  justify-content: flex-start;
 }
 
 .logo {
-  display: flex;
+  display: inline-flex; 
   align-items: center;
+  gap: 8px;
   text-decoration: none;
   color: white;
-
-  mat-icon {
-    margin-right: 8px;
-  }
+  font-size: 1.25rem;
+  font-weight: 500;
 }
 
-.nav-links {
-  flex-grow: 1;
-  display: flex;
+// Center Section (Nav Links)
+.nav-center {
+  flex: 2 0 0; 
   justify-content: center;
+  gap: 16px;
+}
 
-  a {
-    margin: 0 10px;
+// Right Section (Actions)
+.nav-right {
+  flex: 1 0 0;
+  justify-content: flex-end;
+}
+
+// Styling for the navigation links
+a[mat-button] {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #ff80ab; 
+    transform: translateX(-101%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  &:hover::after {
+    transform: translateX(0);
   }
 }
+
+
